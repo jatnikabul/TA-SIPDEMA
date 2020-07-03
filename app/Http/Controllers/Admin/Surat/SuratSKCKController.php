@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratSKCK;
+use App\Models\Penduduk;
+use PDF;
 
 class SuratSKCKController extends Controller
 {
@@ -16,9 +18,10 @@ class SuratSKCKController extends Controller
      */
     public function index(Request $request)
     {
-        $nik = $request->query('nik');
-        $data = SuratSKCK::whereRaw('lower(nik) like(?)', ["%{$nik}%"])->paginate(10);
-        return view('admin.surat.surat-skck.index', compact('data'));
+        $peruntukan_surat = $request->query('peruntukan_surat');
+        $data = SuratSKCK::whereRaw('lower(peruntukan_surat) like(?)', ["%{$peruntukan_surat}%"])->paginate(10);
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-skck.index', compact('data', 'penduduks'));
     }
 
     /**
@@ -28,7 +31,8 @@ class SuratSKCKController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-skck.create');
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-skck.create', compact('penduduks'));
     }
 
     /**
@@ -42,8 +46,6 @@ class SuratSKCKController extends Controller
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
             'penduduk_id' => 'required',
-            'nik' => 'required|max:255',
-            'pekerjaan' => 'required',
             'peruntukan_surat' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -59,8 +61,6 @@ class SuratSKCKController extends Controller
         $data = new SuratSKCK();
         $data->no_surat = $request->no_surat;
         $data->penduduk_id = $request->penduduk_id;
-        $data->nik = $request->nik;
-        $data->pekerjaan = $request->pekerjaan;
         $data->peruntukan_surat = $request->peruntukan_surat;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -89,8 +89,9 @@ class SuratSKCKController extends Controller
      */
     public function edit($id)
     {
+        $penduduks = Penduduk::all();
         $surat_skck = SuratSKCK::findOrFail($id);
-        return view('admin.surat.surat-skck.edit', compact('surat_skck'));
+        return view('admin.surat.surat-skck.edit', compact('surat_skck', 'penduduks'));
     }
 
     /**
@@ -105,8 +106,6 @@ class SuratSKCKController extends Controller
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
             'penduduk_id' => 'required',
-            'nik' => 'required|max:255',
-            'pekerjaan' => 'required',
             'peruntukan_surat' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -122,8 +121,6 @@ class SuratSKCKController extends Controller
         $data = SuratSKCK::findOrFail($id);
         $data->no_surat = $request->no_surat;
         $data->penduduk_id = $request->penduduk_id;
-        $data->nik = $request->nik;
-        $data->pekerjaan = $request->pekerjaan;
         $data->peruntukan_surat = $request->peruntukan_surat;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -143,5 +140,13 @@ class SuratSKCKController extends Controller
         $surat_skck = SuratSKCK::findOrFail($id);
         $surat_skck->delete();
         return redirect('admin/surat/surat-skck');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_skck = SuratSKCK::findOrFail($id);
+
+    	$surat_skck = PDF::loadview('admin.print.surat_skck', ['surat_skck'=>$surat_skck]);
+    	return $surat_skck->stream('surat-skck.pdf');
     }
 }

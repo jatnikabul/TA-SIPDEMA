@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratTidakMampu;
+use App\Models\Penduduk;
+use PDF;
 
 class SuratTidakMampuController extends Controller
 {
@@ -18,7 +20,8 @@ class SuratTidakMampuController extends Controller
     {
         $tanggal = $request->query('tanggal');
         $data = SuratTidakMampu::whereRaw('lower(tanggal) like(?)', ["%{$tanggal}%"])->paginate(10);
-        return view('admin.surat.surat-tidak-mampu.index', compact('data'));
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-tidak-mampu.index', compact('data', 'penduduks'));
     }
 
     /**
@@ -28,7 +31,8 @@ class SuratTidakMampuController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-tidak-mampu.create');
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-tidak-mampu.create', compact('data', 'penduduks'));
     }
 
     /**
@@ -42,7 +46,6 @@ class SuratTidakMampuController extends Controller
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
             'penduduk_id' => 'required',
-            'peruntukan_surat' => 'required',
             'tanggal' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -58,7 +61,6 @@ class SuratTidakMampuController extends Controller
         $data = new SuratTidakMampu();
         $data->no_surat = $request->no_surat;
         $data->penduduk_id = $request->penduduk_id;
-        $data->peruntukan_surat = $request->peruntukan_surat;
         $data->tanggal = $request->tanggal;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -87,8 +89,9 @@ class SuratTidakMampuController extends Controller
      */
     public function edit($id)
     {
+        $penduduks = Penduduk::all();
         $surat_tidak_mampu = SuratTidakMampu::findOrFail($id);
-        return view('admin.surat.surat-tidak-mampu.edit', compact('surat_tidak_mampu'));
+        return view('admin.surat.surat-tidak-mampu.edit', compact('surat_tidak_mampu', 'penduduks'));
     }
 
     /**
@@ -103,7 +106,6 @@ class SuratTidakMampuController extends Controller
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
             'penduduk_id' => 'required',
-            'peruntukan_surat' => 'required',
             'tanggal' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -119,7 +121,6 @@ class SuratTidakMampuController extends Controller
         $data = SuratTidakMampu::findOrFail($id);
         $data->no_surat = $request->no_surat;
         $data->penduduk_id = $request->penduduk_id;
-        $data->peruntukan_surat = $request->peruntukan_surat;
         $data->tanggal = $request->tanggal;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -139,5 +140,13 @@ class SuratTidakMampuController extends Controller
         $surat_tidak_mampu = SuratTidakMampu::findOrFail($id);
         $surat_tidak_mampu->delete();
         return redirect('admin/surat/surat-tidak-mampu');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_tidak_mampu = SuratTidakMampu::findOrFail($id);
+
+    	$surat_tidak_mampu = PDF::loadview('admin.print.surat_tidak_mampu', ['surat_tidak_mampu'=>$surat_tidak_mampu]);
+    	return $surat_tidak_mampu->stream('surat-tidak-mampu.pdf');
     }
 }

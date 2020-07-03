@@ -4,26 +4,22 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Penduduk
         </h1>
         <ol class="breadcrumb">
             <li>
                 <a href="#">
-                    <i class="fa fa-dashboard"></i>
-                    Admin
                 </a>
             </li>
             <li>
             <a href="{{ route('admin.penduduk.index') }}">
-                    Penduduk
                 </a>
             </li>
-            <li class="active">Ubah Penduduk</li>
+            <li class="active"></li>
         </ol>
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Ubah Penduduk</h3>
             </div>
@@ -132,39 +128,36 @@
                             <label class="control-label">pekerjaan</label>
                             <select class="form-control" required name="pekerjaan">
                                 <option value="-">Pilih Pekerjaan</option>
-                                <option value="Belum-/-Tidak-Bekerja" @if ($penduduk->pekerjaan=='Belum-/-Tidak-Bekerja') selected @endif>Belum/Tidak Bekerja</option>
+                                <option value="Belum/Tidak Bekerja" @if ($penduduk->pekerjaan=='Belum/Tidak Bekerja') selected @endif>Belum/Tidak Bekerja</option>
                                 <option value="Buruh" @if ($penduduk->pekerjaan=='Buruh') selected @endif>Buruh</option>
-                                <option value="Pelajar-/-Mahasiswa" @if ($penduduk->pekerjaan=='Pelajar-/-Mahasiswa') selected @endif>Pelajar/Mahasiswa</option>
-                                <option value="Pegawai-Negeri-Sipil" @if ($penduduk->pekerjaan=='Pegawai-Negeri-Sipil') selected @endif>Pegawai Negeri Sipil</option>
+                                <option value="Pelajar/Mahasiswa" @if ($penduduk->pekerjaan=='Pelajar/Mahasiswa') selected @endif>Pelajar/Mahasiswa</option>
+                                <option value="Pegawai Negeri Sipil" @if ($penduduk->pekerjaan=='Pegawai Negeri Sipil') selected @endif>Pegawai Negeri Sipil</option>
                                 <option value="Pensiunan" @if ($penduduk->pekerjaan=='Pensiunan') selected @endif>Pensiunan</option>
-                                <option value="Tentara-Nasional-Indonesia" @if ($penduduk->pekerjaan=='Tentara-Nasional-Indonesia') selected @endif>Tentara Nasional Indonesia</option>
-                                <option value="Kepolisian-RI" @if ($penduduk->pekerjaan=='Kepolisian-RI') selected @endif>Kepolisian RI</option>
-                                <option value="Karyawan-BUMN" @if  ($penduduk->pekerjaan=='Karyawan-BUMN') selected @endif>Karyawan BUMN</option>
-                                <option value="Karyawan-Honorer" @if  ($penduduk->pekerjaan=='Karyawan-Honorer') selected @endif>Karyawan Honorer</option>
-                                <option value="Karyawan-Swasta" @if ($penduduk->pekerjaan=='Karyawan-Swasta') selected @endif>Karyawan Swasta</option>
-                                <option value="Wirausaha" @if  ($penduduk->pekerjaan=='Wirausaha-Swasta') selected @endif>Wirausaha</option>
-                                <option value="dan-lain-lain" @if   ($penduduk->pekerjaan=='dan-lain-lain')selected @endif>dan lain lain</option>
+                                <option value="Tentara Nasional Indonesia" @if ($penduduk->pekerjaan=='Tentara Nasional Indonesia') selected @endif>Tentara Nasional Indonesia</option>
+                                <option value="Kepolisian RI" @if ($penduduk->pekerjaan=='Kepolisian RI') selected @endif>Kepolisian RI</option>
+                                <option value="Karyawan BUMN" @if  ($penduduk->pekerjaan=='Karyawan BUMN') selected @endif>Karyawan BUMN</option>
+                                <option value="Karyawan Honorer" @if  ($penduduk->pekerjaan=='Karyawan Honorer') selected @endif>Karyawan Honorer</option>
+                                <option value="Karyawan Swasta" @if ($penduduk->pekerjaan=='Karyawan Swasta') selected @endif>Karyawan Swasta</option>
+                                <option value="Wirausaha" @if  ($penduduk->pekerjaan=='Wirausaha Swasta') selected @endif>Wirausaha</option>
+                                <option value="dan lain lain" @if   ($penduduk->pekerjaan=='dan lain lain')selected @endif>dan lain lain</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('kedudukan_dalam_keluarga') ? ' has-error' : '' }}">
-                            <label class="control-label">Kedudukan Dalam Keluarga</label>
-                            <input type="text" class="form-control datepicker" id="kedudukan-dalam-keluarga"
-                                name="kedudukan_dalam_keluarga" value="{{  $penduduk->kedudukan_dalam_keluarga }}"
-                                placeholder="">
-                            @if ($errors->has('kedudukan_dalam_keluarga'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('kedudukan_dalam_keluarga') !!}</strong>
-                            </span>
-                            @endif
+                        <div class="form-group">
+                            <label class="control-label">Status Dalam Kleuarga</label>
+                            <select class="form-control" required name="kedudukan_dalam_keluarga">
+                                <option value="kepala keluarga" @if ($penduduk->kedudukan_dalam_keluarga=='Kepala Kleuarga') selected @endif>Kepala Kleuarga</option>
+                                <option value="Istri" @if  ($penduduk->kedudukan_dalam_keluarga=='Istri') selected @endif>Istri</option>
+                                <option value="Anak" @if   ($penduduk->kedudukan_dalam_keluarga=='Anak')selected @endif>Anak</option> 
+                            </select>    
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('keterangan') ? ' has-error' : '' }}">
                             <label class="control-label">Keterangan</label>
-                            <input type="text" class="form-control datepicker" id="keterangan" name="keterangan"
-                                value="{{  $penduduk->keterangan }}" placeholder="">
+                            <textarea class="form-control" id="keterangan" rows="4" 
+                            name="keterangan"> {{  $penduduk->keterangan }} </textarea>
                             @if ($errors->has('keterangan'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('keterangan') !!}</strong>
@@ -173,8 +166,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('dapat_membaca') ? ' has-error' : '' }}">
-                            <label class="control-label">Dapat Membaca</label>
+                        <label class="control-label">Dapat Membaca</label>
+                        <div class="input-group{{ $errors->has('dapat_membaca') ? ' has-error' : '' }}">
+                            <span class="input-group-addon"><i class="fa fa-book"></i></span>
                             <input type="text" class="form-control datepicker" id="dapat_membaca" name="dapat_membaca"
                                 value="{{  $penduduk->dapat_membaca }}" placeholder="">
                             @if ($errors->has('dapat_membaca'))
@@ -197,10 +191,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('alamat_email') ? ' has-error' : '' }}">
-                            <label class="control-label">Alamat Email</label>
-                            <input type="text" class="form-control datepicker" id="alamat_email" name="alamat_email"
-                                value="{{  $penduduk->alamat_email }}" placeholder="">
+                        <label class="control-label">Alamat Email</label>
+                        <div class="input-group{{ $errors->has('alamat_email') ? ' has-error' : '' }}">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control datepicker" id="alamat_email"  name="alamat_email"
+                            value="{{ $penduduk->alamat_email }}" placeholder="">
                             @if ($errors->has('alamat_email'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('alamat_email') !!}</strong>
@@ -209,10 +204,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('nomor_handphone_1') ? ' has-error' : '' }}">
-                            <label class="control-label">Nomor Handphone 1</label>
-                            <input type="text" class="form-control datepicker" id="nomor_handphone_1"
-                                name="nomor_handphone_1" value="{{  $penduduk->nomor_handphone_1 }}" placeholder="">
+                        <label class="control-label">Nomor Handphone 1</label>
+                        <div class="input-group{{ $errors->has('nomor_handphone_1') ? ' has-error' : '' }}">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="number" class="form-control datepicker" id="nomor_handphone_1"  name="nomor_handphone_1"
+                            value="{{ $penduduk->nomor_handphone_1 }}" placeholder="">
                             @if ($errors->has('nomor_handphone_1'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('nomor_handphone_1') !!}</strong>
@@ -221,10 +217,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('nomor_handphone_2') ? ' has-error' : '' }}">
-                            <label class="control-label">Nomor Handphone 2</label>
-                            <input type="text" class="form-control datepicker" id="nomor-handphone-2"
-                                name="nomor_handphone_2" value="{{  $penduduk->nomor_handphone_2 }}" placeholder="">
+                        <label class="control-label">Nomor Handphone 2</label>
+                        <div class="input-group{{ $errors->has('nomor_handphone_2') ? ' has-error' : '' }}">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="number" class="form-control datepicker" id="nomor_handphone_2"  name="nomor_handphone_2"
+                            value="{{ $penduduk->nomor_handphone_2 }}" placeholder="">
                             @if ($errors->has('nomor_handphone_2'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('nomor_handphone_2') !!}</strong>
@@ -237,9 +234,9 @@
                         <div class="form-group">
                             <select class="form-control" required name="status">
                                 <option value="-">Pilih Status</option>
-                                <option value="Sudah-Menikah" @if ($penduduk->status=='Sudah-Menikah') selected
+                                <option value="Sudah Menikah" @if ($penduduk->status=='Sudah Menikah') selected
                                     @endif>Sudah Menikah</option>
-                                <option value="Belum-Menikah" @if ($penduduk->status=='Belum-Menikah') selected
+                                <option value="Belum Menikah" @if ($penduduk->status=='Belum Menikah') selected
                                     @endif>Belum Menikah</option>
                             </select>
                         </div>

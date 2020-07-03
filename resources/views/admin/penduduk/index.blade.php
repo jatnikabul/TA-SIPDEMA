@@ -4,28 +4,27 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Penduduk
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-            <li class="active">Penduduk</li>
+            <li><a href="#"><i class="fa"></i></a></li>
+            <li class="active"></li>
         </ol>
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Data Penduduk</h3>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{{ route('admin.penduduk.create') }}" id="btn-create" class="btn btn-primary mb-2"
+                        <a href="{{ route('admin.penduduk.create') }}" id="btn-create" class="btn btn-success mb-2"
                             style="margin-bottom: 10px;">
                             <i class="fa fa-pencil"></i>
                             <span>Tambah</span>
                         </a>
-                        <a href="{{ route('admin.penduduk.index') }}" id="btn-create" class="btn btn-info mb-2"
+                        <a href="{{ route('admin.penduduk.index') }}" id="btn-create" class="btn btn-success mb-2"
                         style="margin-bottom: 10px;">
                         <i class="glyphicon glyphicon-refresh"></i>
                         <span>Refresh</span>
@@ -36,7 +35,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nama_lengkap" placeholder="Pencarian...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default">
+                                    <button class="btn btn-success text-white">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </span>
@@ -48,13 +47,13 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>NIK</th>
-                                <th>No KK</th>
-                                <th>Nama Lengkap</th>
-                                <th>Alamat</th>
-                                <th>Agama</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Status</th>
+                                <th class="text-center">NIK</th>
+                                <th class="text-center">No KK</th>
+                                <th class="text-center">Nama Lengkap</th>
+                                <th class="text-center">Alamat</th>
+                                <th class="text-center">Agama</th>
+                                <th class="text-center">Jenis Kelamin</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>

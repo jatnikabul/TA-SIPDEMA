@@ -23,7 +23,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Ubah Surat Ijin Keramaian</h3>
             </div>
@@ -46,8 +46,11 @@
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('penduduk_id') ? ' has-error' : '' }}">
                             <label class="control-label">Penduduk id</label>
-                            <input type="text" class="form-control" name="penduduk_id" value="{{ $surat_keramaian->penduduk_id }}"
-                            placeholder="">
+                            <select class="form-control" name="penduduk_id">
+                                @foreach ($penduduks as $penduduk)
+                                <option value="{{ $penduduk->id }}" {{ $penduduk->id == $surat_keramaian->penduduk_id ? 'selected' : '' }}>{{ $penduduk->nama_lengkap }}</option>
+                                @endforeach
+                            </select>
                             @if ($errors->has('penduduk_id'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('penduduk_id') !!}</strong>
@@ -80,7 +83,7 @@
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('waktu') ? ' has-error' : '' }}">
                             <label class="control-label">Waktu</label>
-                            <input type="text" class="form-control" name="waktu" value="{{ $surat_keramaian->waktu }}"placeholder="">
+                            <input type="time" class="form-control" name="waktu" value="{{ $surat_keramaian->waktu }}"placeholder="">
                             @if ($errors->has('waktu'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('waktu') !!}</strong>
@@ -93,6 +96,17 @@
                             <label class="control-label">Tempat</label>
                             <input type="text" class="form-control" name="tempat" value="{{ $surat_keramaian->tempat }}"placeholder="">
                             @if ($errors->has('tempat'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('v') !!}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group{{ $errors->has('hari') ? ' has-error' : '' }}">
+                            <label class="control-label">Hari</label>
+                            <input type="date" class="form-control" name="hari" value="{{ $surat_keramaian->hari }}"placeholder="">
+                            @if ($errors->has('hari'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('v') !!}</strong>
                             </span>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratKeramaian;
+use App\Models\Penduduk;
+use PDF;
 
 
 class SuratKeramaianController extends Controller
@@ -19,6 +21,7 @@ class SuratKeramaianController extends Controller
     {
         $acara = $request->query('acara');
         $data = SuratKeramaian::whereRaw('lower(acara) like(?)', ["%{$acara}%"])->paginate(10);
+        $penduduks = Penduduk::all();
         return view('admin.surat.surat-keramaian.index', compact('data'));
     }
 
@@ -29,7 +32,8 @@ class SuratKeramaianController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-keramaian.create');
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-keramaian.create', compact('data', 'penduduks'));
     }
 
     /**
@@ -47,6 +51,7 @@ class SuratKeramaianController extends Controller
             'jenis_hiburan' => 'required',
             'waktu' => 'required',
             'tempat' => 'required',
+            'hari' => 'required',
             'tanggal' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -66,6 +71,7 @@ class SuratKeramaianController extends Controller
         $data->jenis_hiburan = $request->jenis_hiburan;
         $data->waktu = $request->waktu;
         $data->tempat = $request->tempat;
+        $data->hari = $request->hari;
         $data->tanggal = $request->tanggal;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -94,8 +100,9 @@ class SuratKeramaianController extends Controller
      */
     public function edit($id)
     {
+        $penduduks = Penduduk::all();
         $surat_keramaian = SuratKeramaian::findOrFail($id);
-        return view('admin.surat.surat-keramaian.edit', compact('surat_keramaian'));
+        return view('admin.surat.surat-keramaian.edit', compact('surat_keramaian', 'penduduks'));
     }
 
     /**
@@ -114,6 +121,7 @@ class SuratKeramaianController extends Controller
             'jenis_hiburan' => 'required',
             'waktu' => 'required',
             'tempat' => 'required',
+            'hari' => 'required',
             'tanggal' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
@@ -133,6 +141,7 @@ class SuratKeramaianController extends Controller
         $data->jenis_hiburan = $request->jenis_hiburan;
         $data->waktu = $request->waktu;
         $data->tempat = $request->tempat;
+        $data->hari = $request->hari;
         $data->tanggal = $request->tanggal;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
@@ -153,5 +162,13 @@ class SuratKeramaianController extends Controller
         $surat_keramaian = SuratKeramaian::findOrFail($id);
         $surat_keramaian->delete();
         return redirect('admin/surat/surat-keramaian');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_keramaian = SuratKeramaian::findOrFail($id);
+
+    	$surat_keramaian = PDF::loadview('admin.print.surat_keramaian', ['surat_keramaian'=>$surat_keramaian]);
+    	return $surat_keramaian->stream('surat-keramaian.pdf');
     }
 }

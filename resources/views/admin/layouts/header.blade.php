@@ -30,7 +30,7 @@
                             <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                Alexander Pierce - Web Developer
+                                Sekdes
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>

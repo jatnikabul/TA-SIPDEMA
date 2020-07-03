@@ -13,7 +13,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box box-solid">
+        <div class="box box-success">
             <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
 
@@ -24,6 +24,8 @@
             <dl class="dl-horizontal">
                 <dt>No surat</dt>
                 <dd>{{ $surat_kematian->no_surat }}</dd>
+                <dt>Nama Yang Meninggal</dt>
+                <dd>{{ $surat_kematian->penduduk->nama_lengkap}}</dd>
                 <dt>Hari</dt>
                 <dd>{{ $surat_kematian->hari }}</dd>
                 <dt>Waktu</dt>
@@ -32,8 +34,6 @@
                 <dd>{{ $surat_kematian->tanggal }}</dd>
                 <dt>Meninggal Di</dt>
                 <dd>{{ $surat_kematian->meninggal_di }}</dd>
-                <dt>Nama Yang Meninggal</dt>
-                <dd>{{ $surat_kematian->nama_yang_meninggal }}</dd>
                 <dt>Disebabkan Karena</dt>
                 <dd>{{ $surat_kematian->disebabkan_karena }}</dd>
                 <dt>Nama Yang Melaporkan</dt>

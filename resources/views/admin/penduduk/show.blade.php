@@ -4,16 +4,15 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Penduduk
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-            <li class="active">Data Penduduk</li>
+            <li><a href="#"><i class="fa"></i></a></li>
+            <li class="active"></li>
         </ol>
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box box-solid">
+        <div class="box box-success">
             <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
 
@@ -35,7 +34,13 @@
                 <dt>Tanggal Lahir</dt>
                 <dd>{{ $penduduk->tanggal_lahir }}</dd>
                 <dt>Jenis Kelamin</dt>
-                <dd>{{ $penduduk->jenis_kelamin }}</dd>
+                <dd>@if ($penduduk->jenis_kelamin=='L')
+                    Laki-laki
+                    @endif
+                    @if ($penduduk->jenis_kelamin=='P')
+                    Perempuan
+                    @endif
+                </dd>
                 <dt>Agama</dt>
                 <dd>{{ $penduduk->agama }}</dd>
                 <dt>Pekerjaan</dt>

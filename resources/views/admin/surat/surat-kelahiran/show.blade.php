@@ -13,7 +13,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box box-solid">
+        <div class="box box-success">
             <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
 
@@ -30,20 +30,24 @@
                 <dd>{{ $surat_kelahiran->anak_ke }}</dd>
                 <dt>Tempat Lahir</dt>
                 <dd>{{ $surat_kelahiran->tempat_lahir }}</dd>
-                <dt>Hari</dt>
-                <dd>{{ $surat_kelahiran->hari }}</dd>
                 <dt>Tanggal Lahir</dt>
-                <dd>{{ $surat_kelahiran->tanggal_alhir }}</dd>
+                <dd>{{ $surat_kelahiran->tanggal_lahir }}</dd>
                 <dt>Waktu Lahir</dt>
                 <dd>{{ $surat_kelahiran->waktu_lahir }}</dd>
                 <dt>Jenis Kelamin</dt>
-                <dd>{{ $surat_kelahiran->jenis_kelamin }}</dd>
+                <dd><td>@if ($surat_kelahiran->jenis_kelamin=='L')
+                    Laki-laki
+                    @endif
+                    @if ($surat_kelahiran->jenis_kelamin=='P')
+                    Perempuan
+                    @endif
+                </td></dd>
                 <dt>Agama</dt>
                 <dd>{{ $surat_kelahiran->agama }}</dd>
-                <dt>Nama Ibu</dt>
-                <dd>{{ $surat_kelahiran->nama_ibu }}</dd>
-                <dt>Nama Ayah</dt>
-                <dd>{{ $surat_kelahiran->nama_ayah }}</dd>
+                <dt>Nama Ibu Kandung</dt>
+                <dd>{{ $surat_kelahiran->nama_ibu_kandung }}</dd>
+                <dt>Nama Ayah Kandung</dt>
+                <dd>{{ $surat_kelahiran->nama_ayah_kandung }}</dd>
                 <dt>Alamat</dt>
                 <dd>{{ $surat_kelahiran->alamat }}</dd>
                 <dt>Pejabat Mengetahui</dt>

@@ -13,19 +13,19 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Data Surat Keterangan Kelahiran</h3>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{{ route('admin.surat.surat-kelahiran.create') }}" id="btn-create" class="btn btn-primary mb-2"
+                        <a href="{{ route('admin.surat.surat-kelahiran.create') }}" id="btn-create" class="btn btn-success mb-2"
                             style="margin-bottom: 10px;">
                             <i class="fa fa-pencil"></i>
                             <span>Tambah</span>
                         </a>
-                        <a href="{{ route('admin.surat.surat-kelahiran.index') }}" id="btn-create" class="btn btn-info mb-2"
+                        <a href="{{ route('admin.surat.surat-kelahiran.index') }}" id="btn-create" class="btn btn-success mb-2"
                         style="margin-bottom: 10px;">
                         <i class="glyphicon glyphicon-refresh"></i>
                         <span>Refresh</span>
@@ -36,7 +36,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nama_anak" placeholder="Pencarian...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default">
+                                    <button class="btn btn-success text-white">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </span>
@@ -48,11 +48,11 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>No Surat</th>
-                                <th>Nama Anak</th>
-                                <th>Anak Ke</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Alamat</th>
+                                <th class="text-center">No Surat</th>
+                                <th class="text-center">Nama Anak</th>
+                                <th class="text-center">Anak Ke</th>
+                                <th class="text-center">Tanggal Lahir</th>
+                                <th class="text-center">Alamat</th>
                                 <th class="text-center">Aksi</>
                             </tr>
                         </thead>
@@ -77,6 +77,10 @@
                                         <a href="javascript:void(0)" onclick="deleteSuratKelahiran({{ $surat_kelahiran->id }})"
                                             class="btn btn-danger text-white" data-id="{{ $surat_kelahiran->id }}">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ route('admin.surat.print-surat-kelahiran', $surat_kelahiran->id) }}" 
+                                            class="btn btn-primary" target="surat-kelahiran">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </td>

@@ -18,23 +18,21 @@ class CreatePendudukTable extends Migration
             $table->string('nik');
             $table->string('no_kk');
             $table->string('nama_lengkap', 100);
-            $table->string('nama_panggilan', 30)->nullable();
-            $table->string('tempat_lahir',30);
+            $table->string('nama_panggilan', 30);
+            $table->string('tempat_lahir', 30);
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->enum('agama', ['-','Islam', 'Kristen', 'Budha', 'Konghucu', 'Hindu']);
-            $table->enum('pekerjaan', ['-', 'Belum-/-Tidak-bekerja', 'Buruh', 'Pelajar-/-Mahasiswa', 'Pegawai-Negeri-Sipil', 'Pensiunan', 
-                            'Tentara-Nasional-Indonesia', 'Kepolisian-RI', 'Karyawan-BUMN', 'Karyawan-Honorer', 'Karyawan-Swasta', 
-                            'Wirusaha', 'dan-lain-lain']);
-            $table->string('kedudukan_dalam_keluarga');
+            $table->enum('agama', ['-','Islam', 'Kristen', 'Budha', 'Konghucu', 'Hindu',]);
+            $table->string('pekerjaan');
+            $table->enum('kedudukan_dalam_keluarga', ['kepala keluarga', 'istri', 'anak',]);
             $table->string('keterangan');
             $table->string('dapat_membaca');
             $table->text('alamat_lengkap');
             $table->text('alamat_email');
             $table->string('nomor_handphone_1');
             $table->string('nomor_handphone_2');
-            $table->enum('status', ['-','Sudah-Menikah', 'Belum-Menikah']);
-            $table->enum('pendidikan_terakhir', ['-', 'SD', 'SMP', 'SMA', 'SMK', 'UNIVERSITAS']);
+            $table->enum('status', ['-','Sudah Menikah', 'Belum Menikah',]);
+            $table->enum('pendidikan_terakhir', ['-', 'SD', 'SMP', 'SMA', 'SMK', 'UNIVERSITAS',]);
             $table->string('nik_ibu');
             $table->string('nama_ibu',100);
             $table->string('nik_ayah');

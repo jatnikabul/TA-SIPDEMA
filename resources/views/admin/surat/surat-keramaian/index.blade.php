@@ -13,19 +13,19 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Data Surat Ijin Keramaian</h3>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{{ route('admin.surat.surat-keramaian.create') }}" id="btn-create" class="btn btn-primary mb-2"
+                        <a href="{{ route('admin.surat.surat-keramaian.create') }}" id="btn-create" class="btn btn-success mb-2"
                             style="margin-bottom: 10px;">
                             <i class="fa fa-pencil"></i>
                             <span>Tambah</span>
                         </a>
-                        <a href="{{ route('admin.surat.surat-keramaian.index') }}" id="btn-create" class="btn btn-info mb-2"
+                        <a href="{{ route('admin.surat.surat-keramaian.index') }}" id="btn-create" class="btn btn-success mb-2"
                         style="margin-bottom: 10px;">
                         <i class="glyphicon glyphicon-refresh"></i>
                         <span>Refresh</span>
@@ -36,7 +36,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="acara" placeholder="Pencarian...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default">
+                                    <button class="btn btn-success text-white">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </span>
@@ -48,10 +48,10 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>No Surat</th>
-                                <th>Acara</th>
-                                <th>Tempat</th>
-                                <th>Waktu</th>
+                                <th class="text-center">No Surat</th>
+                                <th class="text-center">Acara</th>
+                                <th class="text-center">Tempat</th>
+                                <th class="text-center">Waktu</th>
                                 <th class="text-center">Aksi</>
                             </tr>
                         </thead>
@@ -75,6 +75,10 @@
                                         <a href="javascript:void(0)" onclick="deleteSuratKeramaian({{ $surat_keramaian->id }})"
                                             class="btn btn-danger text-white" data-id="{{ $surat_keramaian->id }}">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ route('admin.surat.print-keramaian', $surat_keramaian->id) }}" 
+                                            class="btn btn-primary" target="surat-keramaian">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </td>

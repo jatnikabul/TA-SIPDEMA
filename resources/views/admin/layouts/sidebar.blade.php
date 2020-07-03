@@ -14,7 +14,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li>
+            <li>w
                 <a href="javascript:void(0)">
                     <i class="fa fa-user"></i>
                     <span>User</span>
@@ -26,11 +26,12 @@
                     <span>Penduduk</span>
                 </a>
             </li>
-            <li>
-                <a href="javascript:void(0)">
+            <li class="{{ Request::path() == 'admin/desa' ? 'active' :''}}">
+            <li class="{{ Request::path() == 'admin/surat' ? 'active' :''}}">
+                <<a href="{{ route('admin.desa-grafik') }}">
                     <i class="fa fa-home"></i>
                     <span>Desa</span>
-                </a>
+                </>
             </li>
             <li class="treeview">
                 <a href="javascript:void(0)">
@@ -41,7 +42,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.surat.surat-kematian.index') }}"><i class="fa fa-circle-o"></i> Surat Keterangan Kematian </a></li>
+                <li class=""><a href="{{ route('admin.surat.surat-kematian.index') }}"><i class="fa fa-circle-o"></i> Surat Keterangan Kematian</a></li>
                     <li><a href="{{ route('admin.surat.surat-kelahiran.index') }}"><i class="fa fa-circle-o"></i> Surat Keterangan Kelahiran </a></li>
                     <li><a href="{{ route('admin.surat.surat-keramaian.index') }}"><i class="fa fa-circle-o"></i> Surat Ijin Keramaian </a></li>
                     <li><a href="{{ route('admin.surat.surat-tidak-mampu.index') }}"><i class="fa fa-circle-o"></i> Surat Keterangan Tidak Mampu </a></li>
@@ -50,18 +51,11 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="javascript:void(0)">
+            <li>
+                <a href="{{ route('admin.register.index') }}">
                     <i class="fa fa-file"></i>
-                    <span>Laporan</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
+                    <span>Data Surat Pelayanan</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.laporan.surat-masuk.index') }}"><i class="fa fa-circle-o"></i> Surat Masuk</a></li>
-                    <li><a href="{{ route('admin.laporan.surat-keluar.index') }}"><"><i class="fa fa-circle-o"></i> Surat Keluar</a></li>
-                </ul>
             </li>
         </ul>
     </section>

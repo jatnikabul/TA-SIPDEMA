@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sipdema | Dashboard</title>
+    <title>SIPDEMA | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- CSRF Token -->
@@ -12,6 +12,8 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    <!-- alert -->
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/font-awesome/css/font-awesome.min.css')  }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/Ionicons/css/ionicons.min.css') }}">
@@ -36,7 +38,7 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-green fixed sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
         @include('admin.layouts.header')
@@ -53,6 +55,8 @@
     <!-- PACE -->
     <script src="{{ asset('/adminlte/plugins/pace/pace.min.js') }}"></script>
     <!-- SlimScroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <!-- alert -->
     <script src="{{ asset('/adminlte/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
     <!-- FastClick -->
     <script src="{{ asset('/adminlte/plugins/fastclick/lib/fastclick.js') }}"></script>

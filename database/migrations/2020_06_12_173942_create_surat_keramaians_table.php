@@ -16,15 +16,18 @@ class CreateSuratKeramaiansTable extends Migration
         Schema::create('surat_keramaians', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_surat');
-            $table->string('penduduk_id');
+            $table->unsignedBigInteger('penduduk_id');
             $table->string('acara');
             $table->string('jenis_hiburan');
             $table->string('waktu');
             $table->string('tempat');
+            $table->string('hari');
             $table->string('tanggal');
             $table->string('keterangan')->nullable();
             $table->string('pejabat_mengetahui');
             $table->timestamps();
+
+            $table->foreign('penduduk_id')->on()->references('id')->on('penduduk')->onDelete('cascade');
         });
     }
 

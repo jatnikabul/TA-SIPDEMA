@@ -47,30 +47,6 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('nik') ? ' has-error' : '' }}">
-                            <label class="control-label">NIK</label>
-                            <input type="text" class="form-control" name="nik"
-                                value="{!! old('nik') !!}" placeholder="">
-                            @if ($errors->has('nik'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('nik') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('pekerjaan') ? ' has-error' : '' }}">
-                            <label class="control-label">Pekerjaan</label>
-                            <input type="text" class="form-control" name="pekerjaan"
-                                value="{!! old('pekerjaan') !!}" placeholder="">
-                            @if ($errors->has('pekerjaan'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('pekerjaan') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group{{ $errors->has('peruntukan_surat') ? ' has-error' : '' }}">
                             <label class="control-label">Peruntukan Surat</label>
                             <input type="text" class="form-control datepicker" id="peruntukan_surat" name="peruntukan_surat"

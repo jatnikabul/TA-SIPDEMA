@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratKematian;
+use App\Models\Penduduk;
+use PDF;
 
 class SuratKematianController extends Controller
 {
@@ -16,8 +18,9 @@ class SuratKematianController extends Controller
      */
     public function index(Request $request)
     {
-        $nama_yang_meninggal = $request->query('nama_yang_meninggal');
-        $data = SuratKematian::whereRaw('lower(nama_yang_meninggal) like(?)', ["%{$nama_yang_meninggal}%"])->paginate(10);
+        $tanggal = $request->query('tanggal');
+        $data = SuratKematian::whereRaw('lower(tanggal) like(?)', ["%{$tanggal}%"])->paginate(10);
+        $penduduks = Penduduk::all();
         return view('admin.surat.surat-kematian.index', compact('data'));
     }
 
@@ -28,7 +31,8 @@ class SuratKematianController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-kematian.create');
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-kematian.create',  compact('data', 'penduduks'));
     }
     /**
      * Store a newly created resource in storage.
@@ -40,11 +44,11 @@ class SuratKematianController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
+            'penduduk_id' => 'required',
             'hari' => 'required',
             'waktu' => 'required',
             'tanggal' => 'required',
             'meninggal_di' => 'required',
-            'nama_yang_meninggal' => 'required',
             'disebabkan_karena' => 'required',
             'nama_yang_melaporkan' => 'required',
             'hubungan_dengan_yang_meninggal' => 'required',
@@ -60,11 +64,11 @@ class SuratKematianController extends Controller
 
         $data = new SuratKematian();
         $data->no_surat = $request->no_surat;
+        $data->penduduk_id=$request->penduduk_id;
         $data->hari = $request->hari;
         $data->waktu = $request->waktu;
         $data->tanggal = $request->tanggal;
         $data->meninggal_di = $request->meninggal_di;
-        $data->nama_yang_meninggal = $request->nama_yang_meninggal;
         $data->disebabkan_karena = $request->disebabkan_karena;
         $data->nama_yang_melaporkan = $request->nama_yang_melaporkan;
         $data->hubungan_dengan_yang_meninggal = $request->hubungan_dengan_yang_meninggal;
@@ -94,8 +98,9 @@ class SuratKematianController extends Controller
      */
     public function edit($id)
     {
+        $penduduks = Penduduk::all();
         $surat_kematian = SuratKematian::findOrFail($id);
-        return view('admin.surat.surat-kematian.edit', compact('surat_kematian'));
+        return view('admin.surat.surat-kematian.edit', compact('surat_kematian', 'penduduks'));
     }
 
     /**
@@ -109,11 +114,11 @@ class SuratKematianController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
+            'penduduk_id' => 'required',
             'hari' => 'required',
             'waktu' => 'required',
             'tanggal' => 'required',
             'meninggal_di' => 'required',
-            'nama_yang_meninggal' => 'required',
             'disebabkan_karena' => 'required',
             'nama_yang_melaporkan' => 'required',
             'hubungan_dengan_yang_meninggal' => 'required',
@@ -129,11 +134,11 @@ class SuratKematianController extends Controller
 
         $data = SuratKematian::findOrFail($id);
         $data->no_surat = $request->no_surat;
+        $data->penduduk_id=$request->penduduk_id;
         $data->hari = $request->hari;
         $data->waktu = $request->waktu;
         $data->tanggal = $request->tanggal;
         $data->meninggal_di = $request->meninggal_di;
-        $data->nama_yang_meninggal = $request->nama_yang_meninggal;
         $data->disebabkan_karena = $request->disebabkan_karena;
         $data->nama_yang_melaporkan = $request->nama_yang_melaporkan;
         $data->hubungan_dengan_yang_meninggal = $request->hubungan_dengan_yang_meninggal;
@@ -154,5 +159,13 @@ class SuratKematianController extends Controller
         $surat_kematian = SuratKematian::findOrFail($id);
         $surat_kematian->delete();
         return redirect('admin/surat/surat-kematian');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_kematian = SuratKematian::findOrFail($id);
+
+        $surat_kematian = PDF::loadview('admin.print.surat_kematian', ['surat_kematian'=>$surat_kematian]);
+        return $surat_kematian->stream('surat-kematian.pdf');
     }
 }

@@ -23,7 +23,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Tambah Surat Ijin Keramaian</h3>
             </div>
@@ -45,9 +45,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('penduduk_id') ? ' has-error' : '' }}">
-                            <label class="control-label">Penduduk id</label>
-                            <input type="text" class="form-control" name="penduduk_id" value="{!! old('penduduk_id') !!}"
-                                placeholder="">
+                            <label class="control-label">Penduduk</label>
+                            <select class="form-control" name="penduduk_id">
+                                @foreach ($penduduks as $penduduk)
+                                    <option value="{{ $penduduk->id }}">{{ $penduduk->nama_lengkap }}</option>
+                                @endforeach
+                            </select>
                             @if ($errors->has('penduduk_id'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('penduduk_id') !!}</strong>
@@ -82,7 +85,7 @@
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('waktu') ? ' has-error' : '' }}">
                             <label class="control-label">Waktu</label>
-                            <input type="text" class="form-control datepicker" id="waktu" name="waktu"
+                            <input type="time" class="form-control datepicker" id="waktu" name="waktu"
                                 value="{!! old('waktu') !!}" placeholder="">
                             @if ($errors->has('waktu'))
                             <span class="help-block">
@@ -99,6 +102,18 @@
                             @if ($errors->has('tempat'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('tempat') !!}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group{{ $errors->has('hari') ? ' has-error' : '' }}">
+                            <label class="control-label">Hari</label>
+                            <input type="text" class="form-control datepicker" id="hari" name="hari"
+                                value="{!! old('hari') !!}" placeholder="">
+                            @if ($errors->has('hari'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('hari') !!}</strong>
                             </span>
                             @endif
                         </div>

@@ -13,7 +13,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box box-solid">
+        <div class="box box-success">
             <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
 
@@ -25,9 +25,7 @@
                 <dt>No surat</dt>
                 <dd>{{ $surat_tidak_mampu->no_surat }}</dd>
                 <dt>Penduduk id</dt>
-                <dd>{{ $surat_tidak_mampu->penduduk_id }}</dd>
-                <dt>Peruntukan Surat</dt>
-                <dd>{{ $surat_tidak_mampu->peruntukan_surat }}</dd>
+                <dd>{{ $surat_tidak_mampu->penduduk->nama_lengkap }}</dd>
                 <dt>Tanggal</dt>
                 <dd>{{ $surat_tidak_mampu->tanggal }}</dd>
                 <dt>Keterangan</dt>

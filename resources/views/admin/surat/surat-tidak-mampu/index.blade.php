@@ -13,19 +13,19 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Data Surat Keterangan Tidak Mampu</h3>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{{ route('admin.surat.surat-tidak-mampu.create') }}" id="btn-create" class="btn btn-primary mb-2"
+                        <a href="{{ route('admin.surat.surat-tidak-mampu.create') }}" id="btn-create" class="btn btn-success mb-2"
                             style="margin-bottom: 10px;">
                             <i class="fa fa-pencil"></i>
                             <span>Tambah</span>
                         </a>
-                        <a href="{{ route('admin.surat.surat-tidak-mampu.index') }}" id="btn-create" class="btn btn-info mb-2"
+                        <a href="{{ route('admin.surat.surat-tidak-mampu.index') }}" id="btn-create" class="btn btn-success mb-2"
                         style="margin-bottom: 10px;">
                         <i class="glyphicon glyphicon-refresh"></i>
                         <span>Refresh</span>
@@ -36,7 +36,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="tanggal" placeholder="Pencarian...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default">
+                                    <button class="btn btn-success text-white">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </span>
@@ -48,10 +48,9 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>No Surat</th>
-                                <th>Peruntukan Surat</th>
-                                <th>Tanggal</th>
-                                <th>Keterangan</th>
+                                <th class="text-center">No Surat</th>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Keterangan</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -59,7 +58,6 @@
                             @foreach ($data as $surat_tidak_mampu)
                             <tr>
                                 <td>{{ $surat_tidak_mampu->no_surat }}</td>
-                                <td>{{ $surat_tidak_mampu->peruntukan_surat }}</td>
                                 <td>{{ $surat_tidak_mampu->tanggal }}</td>
                                 <td>{{ $surat_tidak_mampu->keterangan }}</td>
                                 <td class="text-center">
@@ -75,6 +73,10 @@
                                         <a href="javascript:void(0)" onclick="deleteSuratTidakMampu({{ $surat_tidak_mampu->id }})"
                                             class="btn btn-danger text-white" data-id="{{ $surat_tidak_mampu->id }}">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ route('admin.surat.print-surat-tidak-mampu', $surat_tidak_mampu->id) }}" 
+                                            class="btn btn-primary" target="surat-tidak-mampu">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </td>

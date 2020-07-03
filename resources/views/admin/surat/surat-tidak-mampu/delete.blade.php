@@ -13,7 +13,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">delete surat keterangan tidak mampu</h3>
             </div>

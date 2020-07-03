@@ -16,13 +16,13 @@ class CreateSuratSkcksTable extends Migration
         Schema::create('surat_skcks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_surat');
-            $table->string('penduduk_id');
-            $table->string('nik');
-            $table->string('pekerjaan');
+            $table->unsignedBigInteger('penduduk_id');
             $table->string('peruntukan_surat', 100);
             $table->string('keterangan')->nullable();
             $table->string('pejabat_mengetahui');
             $table->timestamps();
+
+            $table->foreign('penduduk_id')->on()->references('id')->on('penduduk')->onDelete('cascade');
         });
     }
 

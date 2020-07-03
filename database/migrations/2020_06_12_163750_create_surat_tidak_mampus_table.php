@@ -16,12 +16,13 @@ class CreateSuratTidakMampusTable extends Migration
         Schema::create('surat_tidak_mampus', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_surat');
-            $table->string('penduduk_id');
-            $table->string('peruntukan_surat');
+            $table->unsignedBigInteger('penduduk_id');
             $table->string('tanggal');
-            $table->string('keterangan')->nullable();
+            $table->string('keterangan');
             $table->string('pejabat_mengetahui');
             $table->timestamps();
+
+            $table->foreign('penduduk_id')->on()->references('id')->on('penduduk')->onDelete('cascade');
         });
     }
 

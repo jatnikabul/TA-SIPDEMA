@@ -23,7 +23,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Ubah Surat SKCK</h3>
             </div>
@@ -46,34 +46,14 @@
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('penduduk_id') ? ' has-error' : '' }}">
                             <label class="control-label">Penduduk id</label>
-                            <input type="text" class="form-control" name="penduduk_id" value="{{ $surat_skck->penduduk_id }}"
-                            placeholder="">
+                            <select class="form-control" name="penduduk_id">
+                                @foreach ($penduduks as $penduduk)
+                                <option value="{{ $penduduk->id }}" {{ $penduduk->id == $surat_skck->penduduk_id ? 'selected' : '' }}>{{ $penduduk->nama_lengkap }}</option>
+                                @endforeach
+                            </select>
                             @if ($errors->has('penduduk_id'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('penduduk_id') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('nik') ? ' has-error' : '' }}">
-                            <label class="control-label">NIK</label>
-                            <input type="text" class="form-control" name="nik" value="{{ $surat_skck->nik }}"placeholder="">
-                            @if ($errors->has('nik'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('nik') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('pekerjaan') ? ' has-error' : '' }}">
-                            <label class="control-label">Pekerjaan</label>
-                            <input type="text" class="form-control" name="pekerjaan"
-                                value="{{ $surat_skck->pekerjaan }}"placeholder="">
-                            @if ($errors->has('pekerjaan'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('pekerjaan') !!}</strong>
                             </span>
                             @endif
                         </div>

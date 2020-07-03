@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SuratTidakMampu extends Model
 {
-    protected $fillable = ['no_surat', 'penduduk_id', 'peruntukan_surat', 'tanggal', 'keterangan', 'pejabat_mengetahui',];
+    protected $fillable = ['no_surat', 'penduduk_id', 'tanggal', 'keterangan', 'pejabat_mengetahui',];
 
     public function sql()
     {
@@ -14,12 +14,15 @@ class SuratTidakMampu extends Model
         ->select(
             $this->table . '.no_surat',
             $this->table . '.penduduk_id',
-            $this->table . '.peruntukan_surat',
             $this->table . '.tanggal',
             $this->table . '.keterangan',
             $this->table . '.pejabat_mengetahui'
-        )->orderBy(
-            $this->table . 'id'
-        );
+            )->orderBy(
+                $this->table . 'id'
+            );
+    }
+        
+    public function penduduk(){
+        return $this->belongsTo('App\Models\Penduduk');
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Laporan;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\Models\SuratMasuk;
+use App\Models\Register;
 
-class SuratMasukController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class SuratMasukController extends Controller
      */
     public function index(Request $request)
     {
-        $nama_pemohon = $request->query('nama_pemohon');
-        $data = SuratMasuk::whereRaw('lower(nama_pemohon) like(?)', ["%{$nama_pemohon}%"])->paginate(10);
-        return view('admin.laporan.surat-masuk.index', compact('data'));
+        $jenis_surat = $request->query('jenis_surat');
+        $data = Register::whereRaw('lower(jenis_surat) like(?)', ["%{$jenis_surat}%"])->paginate(10);
+        return view('admin.register.index', compact('data'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        return view('admin.laporan.surat-masuk.create');
+        return view('admin.register.create', compact('data'));
     }
 
     /**
@@ -41,28 +41,30 @@ class SuratMasukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
-            'nama_pemohon' => 'required',
-            'perihal' => 'required|max:255',
+            'penduduk_id' => 'required',
+            'nama' => 'required',
             'tanggal' => 'required',
-            'keterangan' => 'required',
+            'alamat' => 'required',
+            'jenis_surat' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()
-                ->route('admin.laporan.surat-masuk.create')
+                ->route('admin.register.create')
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $data = new SuratMasuk();
+        $data = new Register();
         $data->no_surat = $request->no_surat;
-        $data->nama_pemohon = $request->nama_pemohon;
-        $data->perihal = $request->perihal;
-        $data->tanggal = $request->tanggal;
-        $data->keterangan = $request->keterangan;
+        $data->penduduk_id = $request->penduduk_id;
+        $data->nama = $request->nama;
+        $data->tanggal  = $request->tanggal ;
+        $data->alamat  = $request->alamat ;
+        $data->jenis_surat = $request->jenis_surat;
         $data->save();
 
-        return redirect(route('admin.laporan.surat-masuk.index'));
+        return redirect(route('admin.register.index'));
     }
 
     /**
@@ -73,8 +75,8 @@ class SuratMasukController extends Controller
      */
     public function show($id)
     {
-        $surat_masuk = SuratMasuk::findOrFail($id);
-        return view('admin.laporan.surat-masuk.show', compact('surat_masuk'));
+        $register = Register::findOrFail($id);
+        return view('admin.register.show', compact('register'));
     }
 
     /**
@@ -85,8 +87,8 @@ class SuratMasukController extends Controller
      */
     public function edit($id)
     {
-        $surat_masuk = SuratMasuk::findOrFail($id);
-        return view('admin.laporan.surat-masuk.edit', compact('surat_masuk'));
+        $register = Register::findOrFail($id);
+        return view('admin.register.edit', compact('register'));
     }
 
     /**
@@ -100,28 +102,30 @@ class SuratMasukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
-            'nama_pemohon' => 'required',
-            'perihal' => 'required|max:255',
+            'penduduk_id' => 'required',
+            'nama' => 'required',
             'tanggal' => 'required',
-            'keterangan' => 'required',
+            'alamat' => 'required',
+            'jenis_surat' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()
-                ->route('admin.laporan.surat-masuk.edit')
+                ->route('admin.register.edit')
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $data = SuratMasuk::findOrFail($id);
+        $data = Register::findOrFail($id);
         $data->no_surat = $request->no_surat;
-        $data->nama_pemohon = $request->nama_pemohon;
-        $data->perihal = $request->perihal;
-        $data->tanggal = $request->tanggal;
-        $data->keterangan = $request->keterangan;
+        $data->penduduk_id = $request->penduduk_id;
+        $data->nama = $request->nama;
+        $data->tanggal  = $request->tanggal ;
+        $data->alamat  = $request->alamat ;
+        $data->jenis_surat = $request->jenis_surat;
         $data->update();
 
-        return redirect(route('admin.laporan.surat-masuk.index'));
+        return redirect(route('admin.register.index'));
     }
 
     /**
@@ -132,8 +136,16 @@ class SuratMasukController extends Controller
      */
     public function destroy($id)
     {
-        $surat_masuk = SuratMasuk::findOrFail($id);
-        $surat_masuk->delete();
-        return redirect('admin/laporan/surat-masuk');
+        $register = Register::findOrFail($id);
+        $register->delete();
+        return redirect('admin/register');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_register = Register::findOrFail($id);
+
+        $surat_register = PDF::loadview('admin.print.surat_register', ['surat_usaha' => $surat_register]);
+        return $surat_register->stream('surat-register.pdf');
     }
 }

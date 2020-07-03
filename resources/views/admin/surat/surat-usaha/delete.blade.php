@@ -71,18 +71,6 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('penghasilan') ? ' has-error' : '' }}">
-                            <label class="control-label">Penghasilan</label>
-                            <input type="text" class="form-control datepicker" id="penghasilan" name="penghasilan"
-                                value="{!! old('penghasilan') !!}" placeholder="">
-                            @if ($errors->has('penghasilan'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('penghasilan') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group{{ $errors->has('keterangan') ? ' has-error' : '' }}">
                             <label class="control-label">Keterangan</label>
                             <input type="text" class="form-control datepicker" id="keterangan" name="keterangan"

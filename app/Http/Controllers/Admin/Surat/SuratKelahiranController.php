@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratKelahiran;
+use PDF;
 
 class SuratKelahiranController extends Controller
 {
@@ -28,7 +29,7 @@ class SuratKelahiranController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-kelahiran.create');
+        return view('admin.surat.surat-kelahiran.create', compact('data'));
     }
 
     /**
@@ -44,13 +45,12 @@ class SuratKelahiranController extends Controller
             'nama_anak' => 'required',
             'anak_ke' => 'required',
             'tempat_lahir' => 'required',
-            'hari' => 'required',
             'tanggal_lahir' => 'required',
             'waktu_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'nama_ibu' => 'required',
-            'nama_ayah' => 'required',
+            'nama_ibu_kandung' => 'required',
+            'nama_ayah_kandung' => 'required',
             'alamat' => 'required',
             'pejabat_mengetahui' => 'required',
         ]);
@@ -66,14 +66,13 @@ class SuratKelahiranController extends Controller
         $data->no_surat = $request->no_surat;
         $data->nama_anak = $request->nama_anak;
         $data->anak_ke = $request->anak_ke;
-        $data->tempat_lahir = $request->tempat_lahir;
-        $data->hari = $request->hari;
-        $data->tanggal_lahir = $request->tanggal_lahir;
+        $data->tempat_lahir  = $request->tempat_lahir ;
+        $data->tanggal_lahir  = $request->tanggal_lahir ;
         $data->waktu_lahir = $request->waktu_lahir;
         $data->jenis_kelamin = $request->jenis_kelamin;
         $data->agama = $request->agama;
-        $data->nama_ibu = $request->nama_ibu;
-        $data->nama_ayah = $request->nama_ayah;
+        $data->nama_ibu_kandung = $request->nama_ibu_kandung;
+        $data->nama_ayah_kandung = $request->nama_ayah_kandung;
         $data->alamat = $request->alamat;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
         $data->save();
@@ -118,14 +117,13 @@ class SuratKelahiranController extends Controller
             'no_surat' => 'required',
             'nama_anak' => 'required',
             'anak_ke' => 'required',
-            'tempat_lahir' => 'required',
-            'hari' => 'required',
-            'tanggal_lahir' => 'required',
+            'tempat_lahir ' => 'required',
+            'tanggal_lahir ' => 'required',
             'waktu_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'nama_ibu' => 'required',
-            'nama_ayah' => 'required',
+            'nama_ibu_kandung' => 'required',
+            'nama_ayah_kandung' => 'required',
             'alamat' => 'required',
             'pejabat_mengetahui' => 'required',
         ]);
@@ -141,14 +139,13 @@ class SuratKelahiranController extends Controller
         $data->no_surat = $request->no_surat;
         $data->nama_anak = $request->nama_anak;
         $data->anak_ke = $request->anak_ke;
-        $data->tempat_lahir = $request->tempat_lahir;
-        $data->hari = $request->hari;
-        $data->tanggal_lahir = $request->tanggal_lahir;
+        $data->tempat_lahir  = $request->tempat_lahir;
+        $data->tanggal_lahir  = $request->tanggal_lahir;
         $data->waktu_lahir = $request->waktu_lahir;
         $data->jenis_kelamin = $request->jenis_kelamin;
         $data->agama = $request->agama;
-        $data->nama_ibu = $request->nama_ibu;
-        $data->nama_ayah = $request->nama_ayah;
+        $data->nama_ibu_kandung = $request->nama_ibu_kandung;
+        $data->nama_ayah_kandung = $request->nama_ayah_kandung;
         $data->alamat = $request->alamat;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
         $data->update();
@@ -167,5 +164,13 @@ class SuratKelahiranController extends Controller
         $surat_kelahiran = SuratKelahiran::findOrFail($id);
         $surat_kelahiran->delete();
         return redirect('admin/surat/surat-kelahiran');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_kelahiran = SuratKelahiran::findOrFail($id);
+
+    	$surat_kelahiran = PDF::loadview('admin.print.surat_kelahiran', ['surat_kelahiran'=>$surat_kelahiran]);
+    	return $surat_kelahiran->stream('surat-kelahiran.pdf');
     }
 }

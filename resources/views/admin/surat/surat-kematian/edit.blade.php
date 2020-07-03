@@ -23,7 +23,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Ubah Surat Kematian</h3>
             </div>
@@ -39,6 +39,21 @@
                             @if ($errors->has('no_surat'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('no_surat') !!}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group{{ $errors->has('penduduk_id') ? ' has-error' : '' }}">
+                            <label class="control-label">Nama Yang Meninggal</label>
+                            <select class="form-control" name="penduduk_id">
+                                @foreach ($penduduks as $penduduk)
+                                <option value="{{ $penduduk->id }}" {{ $penduduk->id == $surat_kematian->penduduk_id ? 'selected' : '' }}>{{ $penduduk->nama_lengkap }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('penduduk_id'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('penduduk_id') !!}</strong>
                             </span>
                             @endif
                         </div>
@@ -86,18 +101,6 @@
                             @if ($errors->has('meninggal_di'))
                             <span class="help-block">
                                 <strong>{!! $errors->first('meninggal_di') !!}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group{{ $errors->has('nama_yang_meninggal') ? ' has-error' : '' }}">
-                            <label class="control-label">Nama Yang Meninggal</label>
-                            <input type="text" class="form-control datepicker" id="nama_yang_meninggal" name="nama_yang_meninggal"
-                                value="{{ $surat_kematian->nama_yang_meninggal }}"placeholder="">
-                            @if ($errors->has('nama_yang_meninggal'))
-                            <span class="help-block">
-                                <strong>{!! $errors->first('nama_yang_meninggal') !!}</strong>
                             </span>
                             @endif
                         </div>

@@ -13,7 +13,7 @@
     </section>
     <section class="content">
         <!-- Default box -->
-        <div class="box box-solid">
+        <div class="box box-success">
             <div class="box-header with-border">
             <i class="fa fa-text-width"></i>
 
@@ -25,7 +25,7 @@
                 <dt>No surat</dt>
                 <dd>{{ $surat_keramaian->no_surat }}</dd>
                 <dt>Penduduk id</dt>
-                <dd>{{ $surat_keramaian->penduduk_id }}</dd>
+                <dd>{{ $surat_keramaian->penduduk->nama_lengkap }}</dd>
                 <dt>Acara</dt>
                 <dd>{{ $surat_keramaian->acara }}</dd>
                 <dt>Jenis Hiburan</dt>
@@ -34,6 +34,8 @@
                 <dd>{{ $surat_keramaian->waktu }}</dd>
                 <dt>Tempat</dt>
                 <dd>{{ $surat_keramaian->tempat }}</dd>
+                <dt>Hari</dt>
+                <dd>{{ $surat_keramaian->hari }}</dd>
                 <dt>Tanggal</dt>
                 <dd>{{ $surat_keramaian->tanggal }}</dd>
                 <dt>Keterangan</dt>

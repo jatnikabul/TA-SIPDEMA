@@ -18,14 +18,13 @@ class CreateSuratKelahiransTable extends Migration
             $table->string('no_surat');
             $table->string('nama_anak', 100);
             $table->string('tempat_lahir', 100);
-            $table->string('hari', 100);
             $table->date('tanggal_lahir');
             $table->string('waktu_lahir');
-            $table->string('jenis_kelamin');
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('anak_ke');
             $table->string('agama');
-            $table->string('nama_ibu', 100);
-            $table->string('nama_ayah', 100);
+            $table->string('nama_ibu_kandung', 100);
+            $table->string('nama_ayah_kandung', 100);
             $table->string('alamat');
             $table->string('pejabat_mengetahui');
             $table->timestamps();

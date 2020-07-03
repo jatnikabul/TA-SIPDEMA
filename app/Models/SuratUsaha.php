@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SuratUsaha extends Model
 {
-    protected $fillable = ['no_surat', 'penduduk_id', 'jenis_usaha', 'nama_perusahaan', 'penghasilan', 'keterangan', 'pejabat_mengetahui',];
+    protected $fillable = ['no_surat', 'penduduk_id', 'jenis_usaha', 'nama_perusahaan', 'keterangan', 'pejabat_mengetahui',];
 
     public function sql()
     {
@@ -16,11 +16,14 @@ class SuratUsaha extends Model
             $this->table . '.penduduk_id',
             $this->table . '.jenis_usaha',
             $this->table . '.nama_perusahaan',
-            $this->table . '.penghasilan',
             $this->table . '.keterangan',
             $this->table . '.pejabat_mengetahui'
         )->orderBy(
             $this->table . 'id'
         );
+    }
+
+    public function penduduk(){
+        return $this->belongsTo('App\Models\Penduduk');
     }
 }

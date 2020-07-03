@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\SuratUsaha;
+use App\Models\Penduduk;
+use PDF;
+use SweetAlert;
 
 class SuratUsahaController extends Controller
 {
@@ -18,7 +21,8 @@ class SuratUsahaController extends Controller
     {
         $nama_perusahaan = $request->query('nama_perusahaan');
         $data = SuratUsaha::whereRaw('lower(nama_perusahaan) like(?)', ["%{$nama_perusahaan}%"])->paginate(10);
-        return view('admin.surat.surat-usaha.index', compact('data'));
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-usaha.index', compact('data', 'penduduks'));
     }
 
     /**
@@ -28,7 +32,9 @@ class SuratUsahaController extends Controller
      */
     public function create()
     {
-        return view('admin.surat.surat-usaha.create');
+
+        $penduduks = Penduduk::all();
+        return view('admin.surat.surat-usaha.create', compact('penduduks'));
     }
 
     /**
@@ -44,7 +50,6 @@ class SuratUsahaController extends Controller
             'penduduk_id' => 'required',
             'jenis_usaha' => 'required',
             'nama_perusahaan' => 'required',
-            'penghasilan' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
         ]);
@@ -61,10 +66,12 @@ class SuratUsahaController extends Controller
         $data->penduduk_id = $request->penduduk_id;
         $data->jenis_usaha = $request->jenis_usaha;
         $data->nama_perusahaan = $request->nama_perusahaan;
-        $data->penghasilan = $request->penghasilan;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
+        alert()->success('Success Message', 'Optional Title');
+
         $data->save();
+
 
         return redirect(route('admin.surat.surat-usaha.index'));
     }
@@ -77,8 +84,9 @@ class SuratUsahaController extends Controller
      */
     public function show($id)
     {
+        $penduduks = Penduduk::all();
         $surat_usaha = SuratUsaha::findOrFail($id);
-        return view('admin.surat.surat-usaha.show', compact('surat_usaha'));
+        return view('admin.surat.surat-usaha.show', compact('surat_usaha', 'penduduks'));
     }
 
     /**
@@ -89,8 +97,9 @@ class SuratUsahaController extends Controller
      */
     public function edit($id)
     {
+        $penduduks = Penduduk::all();
         $surat_usaha = SuratUsaha::findOrFail($id);
-        return view('admin.surat.surat-usaha.edit', compact('surat_usaha'));
+        return view('admin.surat.surat-usaha.edit', compact('surat_usaha', 'penduduks'));
     }
 
     /**
@@ -107,7 +116,6 @@ class SuratUsahaController extends Controller
             'penduduk_id' => 'required',
             'jenis_usaha' => 'required',
             'nama_perusahaan' => 'required',
-            'penghasilan' => 'required',
             'keterangan' => 'required',
             'pejabat_mengetahui' => 'required',
         ]);
@@ -124,7 +132,6 @@ class SuratUsahaController extends Controller
         $data->penduduk_id = $request->penduduk_id;
         $data->jenis_usaha = $request->jenis_usaha;
         $data->nama_perusahaan = $request->nama_perusahaan;
-        $data->penghasilan = $request->penghasilan;
         $data->keterangan = $request->keterangan;
         $data->pejabat_mengetahui = $request->pejabat_mengetahui;
         $data->update();
@@ -143,5 +150,13 @@ class SuratUsahaController extends Controller
         $surat_usaha = SuratUsaha::findOrFail($id);
         $surat_usaha->delete();
         return redirect('admin/surat/surat-usaha');
+    }
+
+    public function cetak_pdf($id)
+    {
+        $surat_usaha = SuratUsaha::findOrFail($id);
+
+        $surat_usaha = PDF::loadview('admin.print.surat_usaha', ['surat_usaha' => $surat_usaha]);
+        return $surat_usaha->stream('surat-usaha.pdf');
     }
 }
